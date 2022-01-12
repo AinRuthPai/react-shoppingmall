@@ -4,7 +4,7 @@ import { useState } from "react";
 import Data from "./Data.js";
 
 function App() {
-  const [shoes, shoesChange] = useState([Data]);
+  const [shoes, shoesChange] = useState(Data);
 
   return (
     <div className='App'>
@@ -36,34 +36,23 @@ function App() {
 
       <div className='container'>
         <div className='row'>
-          <div className='col-md-4'>
-            <img src='https://codingapple1.github.io/shop/shoes1.jpg' width='60%' />
-            <h5>상품명</h5>
-            <p>상품 설명 & 가격</p>
-          </div>
-          <div className='col-md-4'>
-            <img src='https://codingapple1.github.io/shop/shoes2.jpg' width='60%' />
-            <h5>상품명</h5>
-            <p>상품 설명 & 가격</p>
-          </div>
-          <div className='col-md-4'>
-            <img src='https://codingapple1.github.io/shop/shoes3.jpg' width='60%' />
-            <h5>상품명</h5>
-            <p>상품 설명 & 가격</p>
-          </div>
-          <Shoes />
+          {shoes.map((array, i) => {
+            return <Card shoes={shoes[i]} i={i} />;
+          })}
         </div>
       </div>
     </div>
   );
 }
 
-function Shoes() {
+function Card(props) {
   return (
     <div className='col-md-4'>
-      <img src='https://codingapple1.github.io/shop/shoes2.jpg' width='60%' />
-      <h5>상품명</h5>
-      <p>상품 설명 & 가격</p>
+      <img src={"https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"} width='60%' />
+      <h5>{props.shoes.title}</h5>
+      <p>
+        {props.shoes.content} & {props.shoes.price}
+      </p>
     </div>
   );
 }
