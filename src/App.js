@@ -21,7 +21,7 @@ function App() {
                 <Link to='/'>Home</Link>
               </Nav.Link>
               <Nav.Link>
-                <Link to='/detail'>Detail</Link>
+                <Link to='/detail/1'>Detail</Link>
               </Nav.Link>
               <NavDropdown title='Dropdown' id='basic-nav-dropdown'>
                 <NavDropdown.Item href='#action/3.1'>Action</NavDropdown.Item>
@@ -54,8 +54,8 @@ function App() {
           </div>
         </Route>
 
-        <Route path='/detail'>
-          <Detail />
+        <Route path='/detail/:id'>
+          <Detail shoes={shoes} />
         </Route>
 
         {/* /:id -> /모든 문자 라는 경로를 의미 */}
