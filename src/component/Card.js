@@ -6,7 +6,7 @@ function Card(props) {
       <img src={"https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"} width='60%' />
       <h5>{props.shoes.title}</h5>
       <p>
-        {props.shoes.content} & {props.shoes.price}
+        {props.shoes.content} & {props.shoes.price}원
       </p>
     </div>
   );

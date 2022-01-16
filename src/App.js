@@ -1,8 +1,9 @@
 import "./App.css";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { useState } from "react";
-import Data from "./Data.js";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link, Route, Switch } from "react-router-dom";
+import axios from "axios";
+import Data from "./Data.js";
 import Detail from "./component/Detail";
 import Card from "./component/Card";
 
@@ -52,6 +53,19 @@ function App() {
               })}
             </div>
           </div>
+          <button
+            className='btn btn-primary'
+            onClick={() => {
+              axios
+                .get("https://codingapple1.github.io/shop/data2.json")
+                .then((result) => {
+                  shoesChange([...shoes, ...result.data]);
+                })
+                .catch("failed");
+            }}
+          >
+            더보기
+          </button>
         </Route>
 
         <Route path='/detail/:id'>

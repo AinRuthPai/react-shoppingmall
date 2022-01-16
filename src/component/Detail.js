@@ -30,7 +30,7 @@ function Detail(props) {
         <div className='col-md-6 mt-4'>
           <h4 className='pt-5'>{findItem.title}</h4>
           <p>{findItem.content}</p>
-          <p>{findItem.price}</p>
+          <p>{findItem.price}원</p>
           <button className='btn btn-danger'>주문하기</button>
           <button
             className='btn btn-danger'
