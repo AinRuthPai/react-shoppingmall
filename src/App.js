@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
@@ -7,8 +7,11 @@ import Data from "./Data.js";
 import Detail from "./component/Detail";
 import Card from "./component/Card";
 
+export const stockcontext = React.createContext();
+
 function App() {
   const [shoes, shoesChange] = useState(Data);
+  const [stock, stockChange] = useState([10, 11, 12]);
 
   return (
     <div className='App'>
@@ -43,15 +46,17 @@ function App() {
           <div className='jumbotron'>
             <img />
             <h3>20% Season Off</h3>
-            <span>subtitle</span>
+            <span>Welcome to ShoeShop</span>
           </div>
 
           <div className='container'>
-            <div className='row'>
-              {shoes.map((array, i) => {
-                return <Card shoes={shoes[i]} i={i} key={i} />;
-              })}
-            </div>
+            <stockcontext.Provider value={stock}>
+              <div className='row'>
+                {shoes.map((array, i) => {
+                  return <Card shoes={shoes[i]} i={i} key={i} />;
+                })}
+              </div>
+            </stockcontext.Provider>
           </div>
           <button
             className='btn btn-primary'
@@ -61,7 +66,9 @@ function App() {
                 .then((result) => {
                   shoesChange([...shoes, ...result.data]);
                 })
-                .catch("failed");
+                .catch(() => {
+                  console.log("failed");
+                });
             }}
           >
             더보기
@@ -69,13 +76,15 @@ function App() {
         </Route>
 
         <Route path='/detail/:id'>
-          <Detail shoes={shoes} />
+          <stockcontext.Provider value={stock}>
+            <Detail shoes={shoes} stock={stock} stockChange={stockChange} />
+          </stockcontext.Provider>
         </Route>
 
         {/* /:id -> /모든 문자 라는 경로를 의미 */}
-        <Route path='/:id'>
+        {/* <Route path='/:id'>
           <div>nothing</div>
-        </Route>
+        </Route> */}
       </Switch>
     </div>
   );

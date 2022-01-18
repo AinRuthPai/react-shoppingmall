@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import "../Detail.scss";
+import { stockcontext } from "../App";
 
 function Detail(props) {
   const history = useHistory();
   const { id } = useParams();
-  const findItem = props.shoes.find(function (item) {
+  const findItem = props.shoes.find((item) => {
     return item.id == id;
   });
-
   const [alert, changeAlert] = useState(true);
+  const stock = useContext(stockcontext);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -31,6 +32,7 @@ function Detail(props) {
           <h4 className='pt-5'>{findItem.title}</h4>
           <p>{findItem.content}</p>
           <p>{findItem.price}원</p>
+          <p>재고 : {stock[0]}</p>
           <button className='btn btn-danger'>주문하기</button>
           <button
             className='btn btn-danger'
