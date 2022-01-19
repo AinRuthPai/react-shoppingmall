@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
@@ -13,10 +13,11 @@ export const stockcontext = React.createContext();
 function App() {
   const [shoes, shoesChange] = useState(Data);
   const [stock, stockChange] = useState([10, 11, 12]);
+  const [more, moreChange] = useState(true);
 
   return (
     <div className='App'>
-      <Navbar bg='light' expand='lg'>
+      <Navbar bg='light' expand='lg' className='navbar'>
         <Container>
           <Navbar.Brand href='/'>ShoeShop</Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -62,21 +63,24 @@ function App() {
               </div>
             </stockcontext.Provider>
           </div>
-          <button
-            className='btn btn-primary'
-            onClick={() => {
-              axios
-                .get("https://codingapple1.github.io/shop/data2.json")
-                .then((result) => {
-                  shoesChange([...shoes, ...result.data]);
-                })
-                .catch(() => {
-                  console.log("failed");
-                });
-            }}
-          >
-            더보기
-          </button>
+          {more === true ? (
+            <button
+              className='btn btn-primary'
+              onClick={() => {
+                axios
+                  .get("https://codingapple1.github.io/shop/data2.json")
+                  .then((result) => {
+                    shoesChange([...shoes, ...result.data]);
+                    moreChange(false);
+                  })
+                  .catch(() => {
+                    console.log("failed");
+                  });
+              }}
+            >
+              더보기
+            </button>
+          ) : null}
         </Route>
 
         <Route path='/cart'>

@@ -3,14 +3,16 @@ import { connect } from "react-redux";
 
 function Cart(props) {
   return (
-    <div>
-      <Table responsive>
+    <Table striped bordered hover>
+      <thead>
         <tr>
           <th>#</th>
           <th>상품명</th>
           <th>수량</th>
           <th>변경</th>
         </tr>
+      </thead>
+      <tbody>
         {props.state.map((a, i) => {
           return (
             <tr key={i}>
@@ -19,6 +21,7 @@ function Cart(props) {
               <td>{a.quan}</td>
               <td>
                 <button
+                  className='count'
                   onClick={() => {
                     props.dispatch({ type: "countUp" });
                   }}
@@ -27,6 +30,7 @@ function Cart(props) {
                 </button>
 
                 <button
+                  className='count'
                   onClick={() => {
                     props.dispatch({ type: "countDown" });
                   }}
@@ -37,8 +41,8 @@ function Cart(props) {
             </tr>
           );
         })}
-      </Table>
-    </div>
+      </tbody>
+    </Table>
   );
 }
 
