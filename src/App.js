@@ -6,6 +6,7 @@ import axios from "axios";
 import Data from "./Data.js";
 import Detail from "./component/Detail";
 import Card from "./component/Card";
+import Cart from "./component/Cart";
 
 export const stockcontext = React.createContext();
 
@@ -17,7 +18,7 @@ function App() {
     <div className='App'>
       <Navbar bg='light' expand='lg'>
         <Container>
-          <Navbar.Brand href='#home'>ShoeShop</Navbar.Brand>
+          <Navbar.Brand href='/'>ShoeShop</Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto'>
@@ -26,6 +27,9 @@ function App() {
               </Nav.Link>
               <Nav.Link as={Link} to='/detail/1'>
                 Detail
+              </Nav.Link>
+              <Nav.Link as={Link} to='/cart'>
+                Cart
               </Nav.Link>
               <NavDropdown title='Dropdown' id='basic-nav-dropdown'>
                 <NavDropdown.Item href='#action/3.1'>Action</NavDropdown.Item>
@@ -73,6 +77,10 @@ function App() {
           >
             더보기
           </button>
+        </Route>
+
+        <Route path='/cart'>
+          <Cart></Cart>
         </Route>
 
         <Route path='/detail/:id'>

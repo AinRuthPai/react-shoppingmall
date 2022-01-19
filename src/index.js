@@ -8,11 +8,33 @@ import reportWebVitals from "./reportWebVitals";
 // 즉, 라우팅을 안전하게 할 수 있게 도와줌
 // BrowserRouter -> 서버에서 서버 라우팅을 방지하는 API 필요
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+
+const defaultState = [{ id: 0, name: "신발", quan: 1 }];
+
+function reducer(state = defaultState, action) {
+  if (action.type === "countUp") {
+    const copy = [...state];
+    copy[0].quan++;
+    return copy;
+  } else if (action.type === "countDown") {
+    const copy = [...state];
+    copy[0].quan--;
+    return copy;
+  } else {
+    return state;
+  }
+}
+
+const store = createStore(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
