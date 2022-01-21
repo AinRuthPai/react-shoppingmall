@@ -9,25 +9,57 @@ import reportWebVitals from "./reportWebVitals";
 // BrowserRouter -> 서버에서 서버 라우팅을 방지하는 API 필요
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, combineReducers } from "redux";
 
-const defaultState = [{ id: 0, name: "신발", quan: 1 }];
+const defaultState = [
+  { id: 0, name: "신발", quan: 1 },
+  { id: 1, name: "신발2", quan: 1 },
+];
 
 function reducer(state = defaultState, action) {
-  if (action.type === "countUp") {
+  if (action.type === "addCart") {
+    const matchId = state.findIndex((a) => {
+      return a.id === action.data.id;
+    });
+
+    if (matchId >= 0) {
+      const copy = [...state];
+      copy[matchId].quan++;
+      return copy;
+    } else {
+      const copy = [...state];
+      copy.push(action.data);
+      return copy;
+    }
+
+    // if (action.type === "addCart") {
+    //   const copy = [...state];
+    //   copy.push(action.payload);
+    //   return copy;
+  } else if (action.type === "countUp") {
     const copy = [...state];
-    copy[0].quan++;
+    copy[action.data].quan++;
     return copy;
   } else if (action.type === "countDown") {
     const copy = [...state];
-    copy[0].quan--;
+    copy[action.data].quan--;
     return copy;
   } else {
     return state;
   }
 }
 
-const store = createStore(reducer);
+const alertDefault = true;
+
+function reducer2(state = alertDefault, action) {
+  if (action.type === "alertClose") {
+    return false;
+  } else {
+    return state;
+  }
+}
+
+const store = createStore(combineReducers({ reducer, reducer2 }));
 
 ReactDOM.render(
   <React.StrictMode>

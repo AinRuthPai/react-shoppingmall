@@ -4,6 +4,7 @@ import "../Detail.scss";
 import { stockcontext } from "../App";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
+import { connect } from "react-redux";
 
 function Detail(props) {
   const history = useHistory();
@@ -35,21 +36,26 @@ function Detail(props) {
         ) : null}
         <div className='row'>
           <div className='col-md-6'>
-            <img src='https://codingapple1.github.io/shop/shoes1.jpg' width='100%' />
+            <img src={"https://codingapple1.github.io/shop/shoes" + 1 + ".jpg"} width='100%' />
           </div>
           <div className='col-md-6 mt-4'>
             <h4 className='pt-5'>{findItem.title}</h4>
             <p>{findItem.content}</p>
             <p>{findItem.price}원</p>
             <p>재고 : {stock[0]}</p>
-            <button className='btn btn-danger'>주문하기</button>
+            <button
+              className='btn btn-danger'
+              onClick={() => {
+                props.dispatch({ type: "addCart", data: { id: findItem.id, name: findItem.title, quan: 1 } });
+              }}>
+              주문하기
+            </button>
             <button
               className='btn btn-danger'
               onClick={() => {
                 // history.push('/') -> / 경로로 이동
                 history.goBack();
-              }}
-            >
+              }}>
               뒤로가기
             </button>
           </div>
@@ -63,8 +69,7 @@ function Detail(props) {
             onClick={() => {
               activeChange(false);
               tabChange(0);
-            }}
-          >
+            }}>
             정보
           </Nav.Link>
         </Nav.Item>
@@ -74,8 +79,7 @@ function Detail(props) {
             onClick={() => {
               activeChange(false);
               tabChange(1);
-            }}
-          >
+            }}>
             후기
           </Nav.Link>
         </Nav.Item>
@@ -85,8 +89,7 @@ function Detail(props) {
             onClick={() => {
               activeChange(false);
               tabChange(2);
-            }}
-          >
+            }}>
             문의
           </Nav.Link>
         </Nav.Item>
@@ -111,4 +114,12 @@ function TabContent(props) {
     return <div>문의</div>;
   }
 }
-export default Detail;
+
+function stateToProps(state) {
+  return {
+    state: state.reducer,
+    alertOpen: state.reducer2,
+  };
+}
+
+export default connect(stateToProps)(Detail);
