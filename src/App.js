@@ -1,12 +1,15 @@
 import "./App.css";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, lazy, Suspense } from "react";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import Data from "./Data.js";
-import Detail from "./component/Detail";
 import Card from "./component/Card";
 import Cart from "./component/Cart";
+// import Detail from "./component/Detail";
+const Detail = lazy(() => {
+  return import("./component/Detail");
+});
 
 export const stockcontext = React.createContext();
 
@@ -26,7 +29,7 @@ function App() {
               <Nav.Link as={Link} to='/'>
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to='/detail/1'>
+              <Nav.Link as={Link} to='/detail/0'>
                 Detail
               </Nav.Link>
               <Nav.Link as={Link} to='/cart'>
@@ -81,18 +84,18 @@ function App() {
             </button>
           ) : null}
         </Route>
-
         <Route path='/cart'>
           <Cart></Cart>
         </Route>
-
-        <Route path='/detail/:id'>
-          <stockcontext.Provider value={stock}>
-            <Detail shoes={shoes} stock={stock} stockChange={stockChange} />
-          </stockcontext.Provider>
-        </Route>
-
-        {/* /:id -> /모든 문자 라는 경로를 의미 */}
+        render(
+        <Suspense fallback={<div>Loading...</div>}>
+          <Route path='/detail/:id'>
+            <stockcontext.Provider value={stock}>
+              <Detail shoes={shoes} stock={stock} stockChange={stockChange} />
+            </stockcontext.Provider>
+          </Route>
+        </Suspense>
+        ){/* /:id -> /모든 문자 라는 경로를 의미 */}
         {/* <Route path='/:id'>
           <div>nothing</div>
         </Route> */}

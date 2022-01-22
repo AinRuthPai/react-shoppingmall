@@ -11,10 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 
-const defaultState = [
-  { id: 0, name: "신발", quan: 1 },
-  { id: 1, name: "신발2", quan: 1 },
-];
+let defaultState = [];
 
 function reducer(state = defaultState, action) {
   if (action.type === "addCart") {
@@ -25,7 +22,6 @@ function reducer(state = defaultState, action) {
     if (matchId >= 0) {
       const copy = [...state];
       copy[matchId].quan++;
-      return copy;
     } else {
       const copy = [...state];
       copy.push(action.data);
@@ -34,7 +30,7 @@ function reducer(state = defaultState, action) {
 
     // if (action.type === "addCart") {
     //   const copy = [...state];
-    //   copy.push(action.payload);
+    //   copy.push(action.data);
     //   return copy;
   } else if (action.type === "countUp") {
     const copy = [...state];
@@ -49,7 +45,7 @@ function reducer(state = defaultState, action) {
   }
 }
 
-const alertDefault = true;
+let alertDefault = true;
 
 function reducer2(state = alertDefault, action) {
   if (action.type === "alertClose") {
