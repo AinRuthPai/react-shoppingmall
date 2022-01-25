@@ -1,10 +1,19 @@
 .my-alert {
-  background-color: whitesmoke;
+  background-color: #5fe6ff;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 6px;
   max-width: 500px;
   width: 100%;
-  margin: 20px auto;
+  margin: 26px auto;
+}
+
+.my-alert2 {
+  background-color: #5fe6ff;
+  margin: 60px auto;
+  padding: 15px;
+  border-radius: 6px;
+  max-width: 500px;
+  width: 100%;
 }
 
 .my-alert p {

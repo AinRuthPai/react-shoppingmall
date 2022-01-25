@@ -15,6 +15,7 @@ let defaultState = [];
 
 function reducer(state = defaultState, action) {
   if (action.type === "addCart") {
+    alert("장바구니에 추가되었습니다.");
     const matchId = state.findIndex((a) => {
       return a.id === action.data.id;
     });
@@ -45,7 +46,7 @@ function reducer(state = defaultState, action) {
   }
 }
 
-let alertDefault = true;
+const alertDefault = true;
 
 function reducer2(state = alertDefault, action) {
   if (action.type === "alertClose") {

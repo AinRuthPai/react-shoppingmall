@@ -36,22 +36,22 @@ function Detail(props) {
         ) : null}
         <div className='row'>
           <div className='col-md-6'>
-            <img src='https://codingapple1.github.io/shop/shoes1.jpg' width='100%' />
+            <img src={"https://codingapple1.github.io/shop/shoes" + (findItem.id + 1) + ".jpg"} width='100%' alt='shoesImg' />
           </div>
           <div className='col-md-6 mt-4'>
             <h4 className='pt-5'>{findItem.title}</h4>
             <p>{findItem.content}</p>
             <p>{findItem.price}원</p>
-            <p>재고 : {stock[0]}</p>
+            <p>재고 : {stock[findItem.id]}</p>
             <button
-              className='btn btn-danger'
+              className='btn btn-primary addCartBtn'
               onClick={() => {
                 props.dispatch({ type: "addCart", data: { id: findItem.id, name: findItem.title, quan: 1 } });
               }}>
-              주문하기
+              장바구니
             </button>
             <button
-              className='btn btn-danger'
+              className='btn btn-primary goBackBtn'
               onClick={() => {
                 // history.push('/') -> / 경로로 이동
                 history.goBack();

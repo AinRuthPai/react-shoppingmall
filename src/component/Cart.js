@@ -52,10 +52,13 @@ function Cart(props) {
           })}
         </tbody>
       </Table>
-      {props.alertOpen === true ? (
-        <div className='my-alert'>
+      <button className='btn btn-primary orderBtn'>주문하기</button>
+
+      {state.reducer2 === true ? (
+        <div className='my-alert2'>
           <p>지금 구매하시면 20% 할인</p>
           <button
+            className='btn btn-primary alertCloseBtn'
             onClick={() => {
               dispatch({ type: "alertClose" });
             }}>

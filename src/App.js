@@ -6,16 +6,16 @@ import axios from "axios";
 import Data from "./Data.js";
 import Card from "./component/Card";
 import Cart from "./component/Cart";
-// import Detail from "./component/Detail";
-const Detail = lazy(() => {
-  return import("./component/Detail");
-});
+import Detail from "./component/Detail";
+// const Detail = lazy(() => {
+//   return import("./component/Detail");
+// });
 
 export const stockcontext = React.createContext();
 
 function App() {
   const [shoes, shoesChange] = useState(Data);
-  const [stock, stockChange] = useState([10, 11, 12]);
+  const [stock, stockChange] = useState([5, 6, 7, 8, 9, 10]);
   const [more, moreChange] = useState(true);
 
   return (
@@ -28,9 +28,6 @@ function App() {
             <Nav className='me-auto'>
               <Nav.Link as={Link} to='/'>
                 Home
-              </Nav.Link>
-              <Nav.Link as={Link} to='/detail/0'>
-                Detail
               </Nav.Link>
               <Nav.Link as={Link} to='/cart'>
                 Cart
@@ -52,7 +49,6 @@ function App() {
         {/* exact -> 경로가 정확히 일치할 때만 보여짐 */}
         <Route exact path='/'>
           <div className='jumbotron'>
-            <img />
             <h3>20% Season Off</h3>
             <span>Welcome to ShoeShop</span>
           </div>
@@ -68,7 +64,7 @@ function App() {
           </div>
           {more === true ? (
             <button
-              className='btn btn-primary'
+              className='btn btn-primary mainMoreBtn'
               onClick={() => {
                 axios
                   .get("https://codingapple1.github.io/shop/data2.json")
@@ -85,17 +81,19 @@ function App() {
           ) : null}
         </Route>
         <Route path='/cart'>
-          <Cart></Cart>
+          <Cart />
         </Route>
-        render(
-        <Suspense fallback={<div>Loading...</div>}>
-          <Route path='/detail/:id'>
-            <stockcontext.Provider value={stock}>
-              <Detail shoes={shoes} stock={stock} stockChange={stockChange} />
-            </stockcontext.Provider>
-          </Route>
-        </Suspense>
-        ){/* /:id -> /모든 문자 라는 경로를 의미 */}
+        {/* render(
+        <Suspense fallback={<div>Loading.......!!!!!!!!</div>}> */}
+        <Route path='/detail/:id'>
+          <stockcontext.Provider value={stock}>
+            <Detail shoes={shoes} stock={stock} stockChange={stockChange} />
+          </stockcontext.Provider>
+        </Route>
+        {/* </Suspense>
+        ) */}
+
+        {/* /:id -> /모든 문자 라는 경로를 의미 */}
         {/* <Route path='/:id'>
           <div>nothing</div>
         </Route> */}

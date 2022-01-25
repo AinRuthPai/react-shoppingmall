@@ -7,23 +7,34 @@ function Card(props) {
   const history = useHistory();
 
   return (
-    <div
-      className='col-md-4'
-      onClick={() => {
-        history.push("/detail/" + props.shoes.id);
-      }}>
-      <img src={"https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"} width='60%' />
-      <h5>{props.shoes.title}</h5>
+    <div className='col-md-4'>
+      <img
+        className='cardImg'
+        src={"https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"}
+        width='60%'
+        alt='shoesImg'
+        onClick={() => {
+          history.push("/detail/" + props.shoes.id);
+        }}
+      />
+      <h5
+        className='cardTitle'
+        onClick={() => {
+          history.push("/detail/" + props.shoes.id);
+        }}>
+        {props.shoes.title}
+      </h5>
       <p>{props.shoes.content}</p>
       <p>{props.shoes.price}원</p>
-      <Test />
+      <p>재고 : {stock[props.shoes.id]}</p>
+      {/* <Test /> */}
     </div>
   );
 }
 
-function Test() {
-  const stock = useContext(stockcontext);
-  return <p>재고 : {stock[0]}</p>;
-}
+// function Test() {
+//   const stock = useContext(stockcontext);
+//   return <p>재고 : {stock[0]}</p>;
+// }
 
 export default Card;
