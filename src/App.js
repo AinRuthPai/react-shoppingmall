@@ -4,9 +4,9 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import { Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import Data from "./Data.js";
-import Card from "./component/Card";
-import Cart from "./component/Cart";
-import Detail from "./component/Detail";
+import Card from "./components/Card";
+import Cart from "./components/Cart";
+import Detail from "./components/Detail";
 // const Detail = lazy(() => {
 //   return import("./component/Detail");
 // });

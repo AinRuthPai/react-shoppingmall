@@ -5,6 +5,7 @@ import { stockcontext } from "../App";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
+import Component from "./Component";
 
 function Detail(props) {
   const history = useHistory();
