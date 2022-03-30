@@ -6,7 +6,7 @@ function Cart(props) {
   const dispatch = useDispatch();
 
   return (
-    <>
+    <section className='cart'>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -66,7 +66,7 @@ function Cart(props) {
           </button>
         </div>
       ) : null}
-    </>
+    </section>
   );
 }
 

@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import "../Detail.scss";
+import "../Detail.css";
 import { stockcontext } from "../App";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
-import Component from "./Component";
 
 function Detail(props) {
   const history = useHistory();
@@ -13,14 +12,14 @@ function Detail(props) {
   const findItem = props.shoes.find((item) => {
     return item.id == id;
   });
-  const [alert, changeAlert] = useState(true);
+  const [alert, setAlert] = useState(true);
   const stock = useContext(stockcontext);
-  const [tab, tabChange] = useState(0);
-  const [active, activeChange] = useState(false);
+  const [tab, setTab] = useState(0);
+  const [active, setActive] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      changeAlert(false);
+      setAlert(false);
     }, 2000);
     return () => {
       clearTimeout(timer);
@@ -68,35 +67,37 @@ function Detail(props) {
           <Nav.Link
             eventKey='link-0'
             onClick={() => {
-              activeChange(false);
-              tabChange(0);
+              setActive(false);
+              setTab(0);
             }}>
             정보
           </Nav.Link>
         </Nav.Item>
+
         <Nav.Item>
           <Nav.Link
-            eventKey='link-1'
+            eventKey='link-0'
             onClick={() => {
-              activeChange(false);
-              tabChange(1);
+              setActive(false);
+              setTab(1);
             }}>
             후기
           </Nav.Link>
         </Nav.Item>
+
         <Nav.Item>
           <Nav.Link
-            eventKey='link-2'
+            eventKey='link-0'
             onClick={() => {
-              activeChange(false);
-              tabChange(2);
+              setActive(false);
+              setTab(2);
             }}>
             문의
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <CSSTransition in={active} classNames='wow' timeout={500}>
-        <TabContent tab={tab} activeChange={activeChange} />
+      <CSSTransition in={active} classNames='tab_content' timeout={500}>
+        <TabContent tab={tab} setActive={setActive} />
       </CSSTransition>
     </>
   );
@@ -104,15 +105,27 @@ function Detail(props) {
 
 function TabContent(props) {
   useEffect(() => {
-    props.activeChange(true);
+    props.setActive(true);
   });
 
   if (props.tab === 0) {
-    return <div>정보</div>;
+    return (
+      <div>
+        <h3>정보</h3>
+      </div>
+    );
   } else if (props.tab === 1) {
-    return <div>후기</div>;
+    return (
+      <div>
+        <h3>후기</h3>
+      </div>
+    );
   } else if (props.tab === 2) {
-    return <div>문의</div>;
+    return (
+      <div>
+        <h3>문의</h3>
+      </div>
+    );
   }
 }
 

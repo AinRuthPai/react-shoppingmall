@@ -7,6 +7,7 @@ import Data from "./Data.js";
 import Card from "./components/Card";
 import Cart from "./components/Cart";
 import Detail from "./components/Detail";
+import Footer from "./components/Footer";
 // const Detail = lazy(() => {
 //   return import("./component/Detail");
 // });
@@ -14,9 +15,9 @@ import Detail from "./components/Detail";
 export const stockcontext = React.createContext();
 
 function App() {
-  const [shoes, shoesChange] = useState(Data);
-  const [stock, stockChange] = useState([5, 6, 7, 8, 9, 10]);
-  const [more, moreChange] = useState(true);
+  const [shoes, setShoes] = useState(Data);
+  const [stock, setStock] = useState([5, 6, 7, 8, 9, 10]);
+  const [more, setMore] = useState(true);
 
   return (
     <div className='App'>
@@ -69,8 +70,8 @@ function App() {
                 axios
                   .get("https://codingapple1.github.io/shop/data2.json")
                   .then((result) => {
-                    shoesChange([...shoes, ...result.data]);
-                    moreChange(false);
+                    setShoes([...shoes, ...result.data]);
+                    setMore(false);
                   })
                   .catch(() => {
                     console.log("failed");
@@ -87,7 +88,7 @@ function App() {
         <Suspense fallback={<div>Loading.......!!!!!!!!</div>}> */}
         <Route path='/detail/:id'>
           <stockcontext.Provider value={stock}>
-            <Detail shoes={shoes} stock={stock} stockChange={stockChange} />
+            <Detail shoes={shoes} stock={stock} setStock={setStock} />
           </stockcontext.Provider>
         </Route>
         {/* </Suspense>
@@ -98,6 +99,7 @@ function App() {
           <div>nothing</div>
         </Route> */}
       </Switch>
+      <Footer />
     </div>
   );
 }
