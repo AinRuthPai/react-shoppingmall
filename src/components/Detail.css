@@ -1,0 +1,47 @@
+.my-alert,
+.my-alert2 {
+  width: 30%;
+  border-radius: 6px;
+  padding: 15px;
+  background-color: #5fe6ff;
+}
+
+.my-alert {
+  margin: 26px auto;
+}
+
+.my-alert2 {
+  margin: 60px auto;
+}
+
+.my-alert p {
+  margin-bottom: 0;
+}
+
+.detailNav {
+  justify-content: center;
+  margin: 4rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgb(214, 213, 213);
+}
+
+.wow-enter {
+  opacity: 0;
+}
+
+.wow-enter-active {
+  opacity: 1;
+  transition: all 500ms;
+}
+
+.detailTabContent {
+  width: 80%;
+  margin: auto;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  height: 100vh;
+}
+
+.detailTabContent h3 {
+  padding: 2rem;
+}

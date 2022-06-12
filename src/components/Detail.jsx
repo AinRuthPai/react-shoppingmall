@@ -1,19 +1,17 @@
-import { useEffect, useState, useContext } from "react";
+import "./Detail.css";
+import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import "../Detail.css";
-import { stockcontext } from "../App";
 import { Nav } from "react-bootstrap";
 import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 
-function Detail(props) {
+function Detail({ shoes }) {
   const history = useHistory();
   const { id } = useParams();
-  const findItem = props.shoes.find((item) => {
-    return item.id == id;
+  const findItem = shoes.find((item) => {
+    return item.id === Number(id);
   });
   const [alert, setAlert] = useState(true);
-  const stock = useContext(stockcontext);
   const [tab, setTab] = useState(0);
   const [active, setActive] = useState(false);
 
@@ -36,24 +34,23 @@ function Detail(props) {
         ) : null}
         <div className='row'>
           <div className='col-md-6'>
-            <img src={"https://codingapple1.github.io/shop/shoes" + (findItem.id + 1) + ".jpg"} width='100%' alt='shoesImg' />
+            <img src={`https://ainruthpai.github.io/imgSrc/shoeshop/shoes${findItem.id + 1}.jpg `} width='100%' alt='shoesImg' />
           </div>
           <div className='col-md-6 mt-4'>
             <h4 className='pt-5'>{findItem.title}</h4>
             <p>{findItem.content}</p>
             <p>{findItem.price}원</p>
-            <p>재고 : {stock[findItem.id]}</p>
+            <p>재고 : {findItem.stock}</p>
             <button
               className='btn btn-primary addCartBtn'
               onClick={() => {
-                props.dispatch({ type: "addCart", data: { id: findItem.id, name: findItem.title, quan: 1 } });
+                shoes.dispatch({ type: "addCart", data: { id: findItem.id, name: findItem.title, quan: 1 } });
               }}>
               장바구니
             </button>
             <button
               className='btn btn-primary goBackBtn'
               onClick={() => {
-                // history.push('/') -> / 경로로 이동
                 history.goBack();
               }}>
               뒤로가기
@@ -62,67 +59,61 @@ function Detail(props) {
         </div>
       </div>
 
-      <Nav className='detailNav' activeKey='/home' onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
+      <Nav className='detailNav'>
         <Nav.Item>
           <Nav.Link
-            eventKey='link-0'
             onClick={() => {
-              setActive(false);
+              setActive(true);
               setTab(0);
             }}>
             정보
           </Nav.Link>
         </Nav.Item>
-
         <Nav.Item>
           <Nav.Link
-            eventKey='link-0'
             onClick={() => {
-              setActive(false);
+              setActive(true);
               setTab(1);
             }}>
             후기
           </Nav.Link>
         </Nav.Item>
-
         <Nav.Item>
           <Nav.Link
-            eventKey='link-0'
             onClick={() => {
-              setActive(false);
+              setActive(true);
               setTab(2);
             }}>
             문의
           </Nav.Link>
         </Nav.Item>
       </Nav>
-      <CSSTransition in={active} classNames='tab_content' timeout={500}>
-        <TabContent tab={tab} setActive={setActive} />
-      </CSSTransition>
+      <TabContent tab={tab} setActive={setActive} findItem={findItem} />
     </>
   );
 }
 
-function TabContent(props) {
+function TabContent({ tab, setActive, findItem }) {
   useEffect(() => {
-    props.setActive(true);
+    setActive(true);
   });
 
-  if (props.tab === 0) {
+  if (tab === 0) {
     return (
-      <div>
+      <div className='detailTabContent'>
         <h3>정보</h3>
+        <img src={`https://ainruthpai.github.io/imgSrc/shoeshop/shoes${findItem.id + 1}.jpg `} width='50%' alt='shoesImg' />
       </div>
     );
-  } else if (props.tab === 1) {
+  } else if (tab === 1) {
     return (
-      <div>
+      <div className='detailTabContent'>
         <h3>후기</h3>
       </div>
     );
-  } else if (props.tab === 2) {
+  } else if (tab === 2) {
     return (
-      <div>
+      <div className='detailTabContent'>
         <h3>문의</h3>
       </div>
     );

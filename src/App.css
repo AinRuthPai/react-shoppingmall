@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "CookieRun-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/CookieRun-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
@@ -16,6 +23,7 @@ code {
 
 .navbar {
   margin: 0.5rem 0;
+  font-family: "CookieRun-Regular";
 }
 
 .jumbotron {
@@ -41,6 +49,13 @@ code {
 
 .col-md-4 {
   margin: 2rem 0;
+  transition: transform 0.3s ease;
+}
+
+.col-md-4:hover {
+  transform: scale(1.05);
+  border-radius: 26px;
+  box-shadow: 2px 2px 2px 2px rgba(238, 238, 238, 0.694);
 }
 
 .btn-primary {
@@ -71,6 +86,10 @@ code {
 .cardImg,
 .cardTitle {
   cursor: pointer;
+}
+
+.cardImg {
+  width: 50%;
 }
 
 .footer {
